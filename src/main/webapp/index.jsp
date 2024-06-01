@@ -1,22 +1,46 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-
+    <meta charset="UTF-8">
+    <title>Time Validator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-container {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-	<h1 style="color: violet; font-size: 40px;" align="center">HEY Harish How are you</h1>
-	<h1 style="color: violet; font-size: 40px;" align="center">HEY WE DEPLOYED OUR APP USING JENKINS</h1>
-	<h1 style="color: red; font-size: 40px;" align="center">THIS IS APP DEPLOYMENT USING TOMCAT</h1>
-	<h1 style="color: blue; font-size: 40px;" align="center">THIS IS CI/CD</h1>
-	<h1 style="color: green; font-size: 40px;" align="center">THIS IS NEW VERSION</h1>
-	<h1 style="color: pink; font-size: 40px;" align="center">WE ARE SUCCESSFULLY DEPLOYED APPLICATION</h1>
-	<h1 style="color: red; font-size: 40px;" align="center">WE INTEGRATED NEXUS TO JENKINS</h1>
-	
-	
-	
-	
-	
-	
-	
-	
+    <div class="form-container">
+        <h1>Time Validator</h1>
+        <form method="post" action="validateTime.jsp">
+            <label for="time">Enter time (HH:MM:SS):</label><br>
+            <input type="text" id="time" name="time" required><br><br>
+            <input type="submit" value="Validate">
+        </form>
+        
+        <%
+            // Java code to validate the time input
+            String time = request.getParameter("time");
+            if (time != null) {
+                boolean isValid = time.matches("([01]?[0-9]|2[0-3]):[0-5]?[0-9]:[0-5]?[0-9]");
+                
+                if (isValid) {
+                    out.println("<div class='result' style='color: green;'>The time " + time + " is valid.</div>");
+                } else {
+                    out.println("<div class='result' style='color: red;'>The time " + time + " is invalid. Please enter in HH:MM:SS format.</div>");
+                }
+            }
+        %>
+    </div>
 </body>
 </html>
